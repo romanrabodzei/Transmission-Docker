@@ -1,0 +1,40 @@
+FROM ubuntu:18.04
+
+# MAINTAINER “Roman Rabodzei” roman.rabodzei@icloud.com
+
+RUN \
+# Update and get dependencies
+    apt-get update && \
+    apt-get upgrade -y
+
+RUN \
+# Install Transmission
+    apt-get install -y \
+    transmission-daemon
+
+RUN \
+# Setup directories
+    mkdir -p \
+      /incompleted \
+      /completed
+
+RUN \
+# Remove default configuration file
+    rm -rf /etc/transmission-daemon/settings.json
+
+# Copy correct configuration file
+COPY ./settings.json /etc/transmission-daemon/
+
+RUN \
+# Cleanup old data
+    apt-get -y autoremove && \
+    apt-get -y clean
+
+# Publish port
+EXPOSE 9091/TCP
+
+# Map volumes
+VOLUME /incompleted /completed
+
+# Run transmission daemon
+CMD service transmission-daemon start ; while true ; do sleep 100; done;
