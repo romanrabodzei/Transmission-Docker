@@ -39,4 +39,4 @@ docker container run \
 transmission:latest
 ```
 
-![WebUI](https://i.postimg.cc/cxvg0Ch8/Screenshot-2021-01-28-at-21-05-54.png)
+![WebUI](Screenshot-2021-01-28-at-21-05-54.png) 
