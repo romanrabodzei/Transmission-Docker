@@ -1,4 +1,4 @@
-# Docker container for Transmission
+# Docker container with Transmission client
 
 Transmission is a fast, easy, and free BitTorrent client. For more information, visit [https://transmissionbt.com/](https://transmissionbt.com/).
 
