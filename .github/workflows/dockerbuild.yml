@@ -69,7 +69,7 @@ jobs:
           echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
 
           docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 \
-            -t $DOCKERHUB_REPOSITORY:$TARGET_VERSION -f ./Dockerfile.transmission .
+            --tag $DOCKERHUB_USERNAME/transmission:"$TARGET_VERSION.0" -f ./Dockerfile.transmission .
 
           docker buildx build --push --platform linux/amd64,linux/arm64,linux/arm/v7 \
-            -t $DOCKERHUB_REPOSITORY:latest -f ./Dockerfile.transmission .
+            --tag $DOCKERHUB_USERNAME/transmission:latest -f ./Dockerfile.transmission .
