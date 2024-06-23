@@ -1,6 +1,9 @@
-# Docker container for Transmission
+# Docker container with Transmission client
 
-Transmission is a fast, easy, and free BitTorrent client. Visit [https://transmissionbt.com/](https://transmissionbt.com/) for more information.
+Transmission is a fast, easy, and free BitTorrent client. For more information, visit [https://transmissionbt.com/](https://transmissionbt.com/).
+
+## Build status
+[![Image build and publish](https://github.com/romanrabodzei/Transmission-Docker/actions/workflows/workflow.yml/badge.svg?branch=main)](https://github.com/romanrabodzei/Transmission-Docker/actions/workflows/workflow.yml)
 
 ## Run a container 
 ```bash
@@ -13,19 +16,19 @@ docker container run \
 romanrabodzei/transmission:latest
 ```
 
-`--volume /incompleted/:/your_folder` - set a folder for temp files
+`--volume /incompleted/:/your_folder` - set a folder for temp files.
 
-`--volume /completed/:/your_folder` - set a folder for completed tasks
+`--volume /completed/:/your_folder` - set a folder for completed tasks.
 
 ## Setting up a username and password
 
-The default username is *transmission* and the password is *transmission*. To set up your own username and password change the following lines in the settings.json file
+The default username is *transmission*, and the password is *transmission*. To set up your own username and password, change the following lines in the settings.json file
 ```json
 "rpc-password": "password",
 "rpc-username": "username",
 ```
 
-Then build a docker image and run it
+Then, build a docker image and run it.
 
 ```bash
 docker build -t transmission:latest -f ./Dockerfile.transmission .
