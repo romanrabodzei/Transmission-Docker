@@ -3,7 +3,7 @@
 Transmission is a fast, easy, and free BitTorrent client. Visit [https://transmissionbt.com/](https://transmissionbt.com/) for more information.
 
 ## Build status
-[![Transmission image build and publish](https://github.com/romanrabodzei/Transmission-Docker/actions/workflows/workflow.yml/badge.svg?branch=main)](https://github.com/romanrabodzei/Transmission-Docker/actions/workflows/workflow.yml)
+[![Image build and publish](https://github.com/romanrabodzei/Transmission-Docker/actions/workflows/workflow.yml/badge.svg?branch=main)](https://github.com/romanrabodzei/Transmission-Docker/actions/workflows/workflow.yml)
 
 ## Run a container 
 ```bash
