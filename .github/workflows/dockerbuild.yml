@@ -1,0 +1,60 @@
+# .Synopsis
+#     Docker image build and publish
+#
+# .NOTES
+#     Author     : Roman Rabodzei
+#     Version    : 1.0.240617
+#
+#             _
+#         .__(.)<  (MEOW)
+#          \___)
+#  ~~~~~~~~~~~~~~~~~~~~~~~~
+
+name: "Docker image build and publish"
+
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  build_image:
+    name: Build docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Install Docker CE
+        run: |
+          sudo apt-get update
+          sudo apt-get install \
+              apt-transport-https \
+              ca-certificates \
+              curl \
+              gnupg-agent \
+              software-properties-common
+          curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+          sudo apt-key fingerprint 0EBFCD88
+          sudo add-apt-repository \
+            "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+            $(lsb_release -cs) \
+            stable"
+          sudo apt-get update
+          sudo apt-get install docker-ce docker-ce-cli containerd.io
+          apt-cache madison docker-ce
+
+      - name: Setup Docker buildx
+        run: |
+          mkdir -p ~/.docker
+          echo $'{\n    "experimental": "enabled"\n}' | sudo tee ~/.docker/config.json;
+          sudo service docker restart
+          docker version
+          docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
+          docker buildx create --use --name mult
+          docker buildx inspect --bootstrap
+          docker buildx ls
