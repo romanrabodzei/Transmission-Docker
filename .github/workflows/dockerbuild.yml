@@ -61,7 +61,7 @@ jobs:
 
       - name: Build and push image
         env:
-          TARGET_VERSION: ${{ github.run_id }}
+          TARGET_VERSION: ${{ github.run_number }}
           # DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           # DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
 
