@@ -1,16 +1,16 @@
 # .Synopsis
-#     Docker image build and publish
+#     The workflow for building and publishing the Transmission docker image
 #
 # .NOTES
 #     Author     : Roman Rabodzei
-#     Version    : 1.0.240617
+#     Version    : 1.0.240623
 #
 #             _
 #         .__(.)<  (MEOW)
 #          \___)
 #  ~~~~~~~~~~~~~~~~~~~~~~~~
 
-name: "Docker image build and publish"
+name: "Transmission image build and publish"
 
 on:
   workflow_dispatch:
@@ -21,7 +21,7 @@ permissions:
 
 jobs:
   build_image:
-    name: Build docker image
+    name: Build and Publish Docker image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -59,12 +59,11 @@ jobs:
           docker buildx inspect --bootstrap
           docker buildx ls
 
-      - name: Build and push image
+      - name: Build and Publish image
         env:
           TARGET_VERSION: ${{ github.run_number }}
           DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
           DOCKERHUB_PASSWORD: ${{ secrets.DOCKERHUB_PASSWORD }}
-          DOCKERHUB_REPOSITORY: ${{ secrets. DOCKERHUB_REPOSITORY }}
         run: |
           echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin
 
