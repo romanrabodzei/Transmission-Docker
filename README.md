@@ -1,8 +1,8 @@
-# Docker container with Transmission client
+# Docker image with Transmission client
 
 Transmission is a fast, easy, and free BitTorrent client. It has the features you would want from a BitTorrent client: encryption, a web interface, peer exchange, magnet links, DHT, µTP, UPnP, and NAT-PMP port forwarding, webseed support, watch directories, tracker editing, global and per-torrent speed limits, and more.
 
-The Docker version of Transmission allows you to run this BitTorrent client in a Docker container, which can be very useful for maintaining isolation and control over the resources it uses. This can be particularly beneficial if you're running it on a server with other services.
+The Docker image with the Transmission client allows you to run this BitTorrent client in a Docker container, which can be very useful for maintaining isolation and control over the resources it uses. This can be particularly beneficial if you're running it on a server with other services.
 
 > [!IMPORTANT]
 > **Please note that you should always be mindful of the legal and ethical considerations when using BitTorrent clients and only use them for sharing and downloading content that is free to distribute.**
