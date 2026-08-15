@@ -12,16 +12,18 @@ LABEL maintaner="Roman Rabodzei" \
 RUN apt-get update && \
     apt-get upgrade -y
 
-# Install Transmission
+# Install Transmission and gosu (used to drop privileges at runtime)
 RUN apt-get install -y \
-    transmission-daemon
+    transmission-daemon \
+    gosu
 
 # Setup directories
 RUN mkdir -p \
     /incompleted \
     /completed
 
-# Set ownership and permissions
+# Set default ownership and permissions (re-applied at runtime by entrypoint.sh
+# to also cover bind-mounted host directories)
 RUN chown debian-transmission:debian-transmission /incompleted /completed && \
     chmod 755 /incompleted /completed
 
@@ -31,15 +33,24 @@ RUN rm -rf /etc/transmission-daemon/settings.json
 # Copy correct configuration file
 COPY ./settings.json /etc/transmission-daemon/
 
+# Copy entrypoint script
+COPY ./entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
 # Cleanup old data
 RUN apt-get -y autoremove && \
     apt-get -y clean
 
 # Publish port
-EXPOSE 8080/TCP
+EXPOSE 8080/tcp
 
 # Map volumes
 VOLUME /incompleted /completed
 
-# Run transmission daemon
-CMD service transmission-daemon start ; while true ; do sleep 100; done;
+# Default uid/gid for the debian-transmission user; override to match the
+# owner of your bind-mounted /incompleted and /completed host directories
+ENV PUID=100
+ENV PGID=101
+
+# Run transmission daemon in the foreground as PID 1
+ENTRYPOINT ["/entrypoint.sh"]

@@ -30,6 +30,22 @@ romanrabodzei/transmission:latest
 
 `--volume /completed/:/your_folder` - set a folder for completed tasks.
 
+## File permissions
+
+At startup the container re-owns `/incompleted` and `/completed` to the `debian-transmission` user (uid `100`, gid `101` by default) so downloads work no matter who owns the mounted host folders. If your host folders belong to a different user, pass `PUID`/`PGID` to match it so files land on disk with the ownership you expect:
+
+```bash
+docker container run \
+--detach \
+--name transmission \
+--publish 8080:8080/tcp \
+--env PUID=1000 \
+--env PGID=1000 \
+--volume /incompleted/:/incompleted \
+--volume /completed/:/completed \
+romanrabodzei/transmission:latest
+```
+
 ## Setting up a username and password
 
 The default username is *transmission*, and the password is *transmission*. To set up your own username and password, change the following lines in the settings.json file
